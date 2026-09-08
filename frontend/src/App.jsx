@@ -294,12 +294,10 @@ setStudentData(response.data);
 }
     }}
 >
-    <input
-        name="studentId"
-        placeholder="Student ID"
-        required
-    />
-
+ <select name="studentId" required>
+    <option value="">Select Student</option>
+    <option value="6aa01ddccd9215a43402cb17">Rahul</option>
+</select>
     <input
         name="date"
         type="datetime-local"
