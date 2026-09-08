@@ -296,7 +296,7 @@ setStudentData(response.data);
 >
  <select name="studentId" required>
     <option value="">Select Student</option>
-    <option value="6aa01ddccd9215a43402cb17">Rahul</option>
+    <option value="6aa0261a3e4a8dfbac2f4b75">Student Demo</option>
 </select>
     <input
         name="date"
