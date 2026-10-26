@@ -641,43 +641,64 @@ return (
 }
 
     return (
-       <div className="login-page">
-        <div className="login-card">
-            <h1>TutorFlow</h1>
+        <div className="login-page">
+            <div className="login-card">
+                <h1>TutorFlow</h1>
+                <p>Sign in to continue</p>
 
-            <form onSubmit={handleLogin}>
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) =>
-                        setEmail(e.target.value)
-                    }
-                    required
-                />
+                <form onSubmit={handleLogin}>
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
 
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                    required
-                />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading
-                        ? "Logging in..."
-                        : "Login"}
-                </button>
-            </form>
+                    <button type="submit" disabled={loading}>
+                        {loading ? "Logging in..." : "Login"}
+                    </button>
+                </form>
 
-            {error && <p className="error">{error}</p>}
-        </div>
+                {error && <p className="error">{error}</p>}
+
+                <div className="demo-account">
+                    <h3>Demo account</h3>
+                    <p><strong>Email:</strong> admin@loop.demo</p>
+                    <p><strong>Password:</strong> LoopDemo@123</p>
+                    <button
+                        type="button"
+                        className="demo-fill-button"
+                        onClick={() => {
+                            setEmail("admin@loop.demo");
+                            setPassword("LoopDemo@123");
+                            setError("");
+                        }}
+                    >
+                        Use demo credentials
+                    </button>
+                </div>
+
+                <p className="auth-switch">
+                    Don&apos;t have an account?{" "}
+                    <button
+                        type="button"
+                        onClick={() =>
+                            setError("Registration will be added after we confirm the backend registration route.")
+                        }
+                    >
+                        Register
+                    </button>
+                </p>
+            </div>
         </div>
     );
 }
