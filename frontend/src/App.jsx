@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import logo from "./assets/tutorflow-icon.png";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
@@ -13,6 +14,7 @@ function App() {
     const [notes, setNotes] = useState({});
     const [sessions, setSessions] = useState([]);
     const [studentData, setStudentData] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
     
 
     const [user, setUser] = useState(
@@ -640,67 +642,139 @@ return (
     );
 }
 
-    return (
-        <div className="login-page">
-            <div className="login-card">
+
+return (
+    <main className="login-page">
+        <section className="login-card">
+            <div className="login-brand">
+                <img
+                    src={logo}
+                    alt="TutorFlow logo"
+                    className="login-logo"
+                />
                 <h1>TutorFlow</h1>
-                <p>Sign in to continue</p>
+                <p>Learn better. Teach smarter.</p>
+            </div>
 
-                <form onSubmit={handleLogin}>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+            <div className="login-intro">
+                <h2>Welcome back</h2>
+                <p>Sign in to continue to your learning space.</p>
+            </div>
 
+            <form onSubmit={handleLogin} className="login-form">
+                <label htmlFor="login-email">Email address</label>
+                <input
+                    id="login-email"
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    autoComplete="username"
+                    required
+                />
+
+                <label htmlFor="login-password">Password</label>
+                <div className="password-field">
                     <input
-                        type="password"
-                        placeholder="Password"
+                        id="login-password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Enter your password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        autoComplete="current-password"
                         required
                     />
-
-                    <button type="submit" disabled={loading}>
-                        {loading ? "Logging in..." : "Login"}
-                    </button>
-                </form>
-
-                {error && <p className="error">{error}</p>}
-
-                <div className="demo-account">
-                    <h3>Demo account</h3>
-                    <p><strong>Email:</strong> admin@loop.demo</p>
-                    <p><strong>Password:</strong> LoopDemo@123</p>
                     <button
                         type="button"
-                        className="demo-fill-button"
-                        onClick={() => {
-                            setEmail("admin@loop.demo");
-                            setPassword("LoopDemo@123");
-                            setError("");
-                        }}
+                        className="password-toggle"
+                        onClick={() =>
+                            setShowPassword((current) => !current)
+                        }
                     >
-                        Use demo credentials
+                        {showPassword ? "Hide" : "Show"}
                     </button>
                 </div>
 
-                <p className="auth-switch">
-                    Don&apos;t have an account?{" "}
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setError("Registration will be added after we confirm the backend registration route.")
-                        }
-                    >
-                        Register
-                    </button>
-                </p>
-            </div>
-        </div>
-    );
+                {error && (
+                    <p className="login-error" role="alert">
+                        {error}
+                    </p>
+                )}
+
+                <button
+                    type="submit"
+                    className="login-submit"
+                    disabled={loading}
+                >
+                    {loading ? "Signing in..." : "Sign in"}
+                </button>
+            </form>
+
+            <section className="demo-section">
+                <div className="demo-heading">
+                    <h3>Explore TutorFlow</h3>
+                    <p>Choose an account to fill in the demo credentials.</p>
+                </div>
+
+                <div className="demo-grid">
+                    <article className="demo-card">
+                        <div className="demo-icon tutor-icon">T</div>
+                        <h4>Tutor account</h4>
+                        <p>Manage sessions and learning plans.</p>
+                        <button
+                            type="button"
+                            className="demo-fill-button"
+                            onClick={() => {
+                                setEmail("tutor@tutorflow.com");
+                                setPassword("Tutor@123");
+                                setError("");
+                                setShowPassword(false);
+                            }}
+                        >
+                            Use tutor demo
+                        </button>
+                    </article>
+
+                    <article className="demo-card">
+                        <div className="demo-icon student-icon">S</div>
+                        <h4>Student account</h4>
+                        <p>View sessions and learning progress.</p>
+                        <button
+                            type="button"
+                            className="demo-fill-button"
+                            onClick={() => {
+                                setEmail("student@tutorflow.com");
+                                setPassword("Student@123");
+                                setError("");
+                                setShowPassword(false);
+                            }}
+                        >
+                            Use student demo
+                        </button>
+                    </article>
+                </div>
+            </section>
+
+            <p className="login-footer">
+                A smarter way to learn, teach, and grow.
+            </p>
+
+            <p className="auth-switch">
+                Don't have an account?{" "}
+                <button
+                    type="button"
+                    onClick={() =>
+                        setError(
+                            "Registration is not available yet."
+                        )
+                    }
+                >
+                    Register
+                </button>
+            </p>
+        </section>
+    </main>
+);
 }
 
 export default App;
